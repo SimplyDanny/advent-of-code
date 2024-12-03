@@ -32,12 +32,7 @@ fn run_timed<I: Clone, T>(
 ) -> (T, Duration, u128) {
     let timer = Instant::now();
     let result = {
-        let input = input.clone();
-
-        #[cfg(feature = "dhat-heap")]
-        let _profiler = dhat::Profiler::new_heap();
-
-        func(input)
+        func(input.clone())
     };
     let base_time = timer.elapsed();
 
