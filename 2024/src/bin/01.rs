@@ -17,7 +17,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let (lhs, rhs): (Vec<u32>, Vec<u32>) = multiunzip(parse_lines(input, &line_parser));
-    let number_count = rhs.iter().counts_by(|x| x);
+    let number_count = rhs.iter().counts();
     let result = lhs.into_iter().fold(0, |acc, num| {
         acc + num * *number_count.get(&num).unwrap_or(&0) as u32
     });
