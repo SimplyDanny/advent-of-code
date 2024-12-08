@@ -8,6 +8,10 @@ pub fn parse_as_int(input: &str) -> IResult<&str, u32> {
     map_res(digit1, |s: &str| s.parse::<u32>())(input)
 }
 
+pub fn parse_as_big_int(input: &str) -> IResult<&str, u64> {
+    map_res(digit1, |i: &str| i.parse::<u64>())(input)
+}
+
 pub fn parse_lines<'a, LineParser, Result>(
     input: &'a str,
     line_parser: &'a LineParser,
