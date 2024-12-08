@@ -4,7 +4,7 @@ use advent_of_code::{Coordinate, Matrix, MatrixVisitor};
 use itertools::Itertools;
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let matrix = Matrix::new(input.lines().map(Vec::from).collect::<Vec<Vec<u8>>>());
+    let mut matrix = Matrix::new(input.lines().map(Vec::from).collect::<Vec<Vec<u8>>>());
 
     let mut xmas = Xmas::new([b'X', b'M', b'A', b'S']);
     let mut samx = Xmas::new([b'S', b'A', b'M', b'X']);
@@ -25,7 +25,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let matrix = Matrix::new(input.lines().map(Vec::from).collect::<Vec<Vec<u8>>>());
+    let mut matrix = Matrix::new(input.lines().map(Vec::from).collect::<Vec<Vec<u8>>>());
 
     let mut mas = Mas::new([b'M', b'A', b'S']);
     let mut sam = Mas::new([b'S', b'A', b'M']);
@@ -75,7 +75,8 @@ impl Xmas {
 }
 
 impl MatrixVisitor<u8> for Xmas {
-    fn visit(&mut self, c: u8, _: Coordinate) {
+    fn visit(&mut self, c: &mut u8, _: Coordinate) {
+        let c = *c;
         if c == self.expectation[0] {
             self.reset();
             self.add(c);
@@ -127,7 +128,8 @@ impl Mas {
 }
 
 impl MatrixVisitor<u8> for Mas {
-    fn visit(&mut self, c: u8, coordinate: Coordinate) {
+    fn visit(&mut self, c: &mut u8, coordinate: Coordinate) {
+        let c = *c;
         if c == self.expectation[0] {
             self.reset();
             self.add(c);
